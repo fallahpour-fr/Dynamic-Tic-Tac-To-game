@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <link href="./style.css" rel="stylesheet" type="text/css">
+    <title>Dynamic Tic Tac Toe gane</title>
+</head>
+
+<body>
+    <div class="row">
+        <div class="parent">
+
+            <header class="title">
+
+                <h1>Tic Tac Toe</h1>
+
+            </header>
+            <section class="information-part">
+
+                
+                <div class="players-part">
+                    <div class="player player--active">
+                        <span class="player__symble">
+                            X
+                        </span>
+                        <span class="player__score">
+                            0
+                        </span>
+                    </div>
+                    <div class="player">
+                        <span class="player__symble">
+                            O
+                        </span>
+                        <span class="player__score">
+                            0
+                        </span>
+                    </div>
+                </div>
+                <div class="buttons-part">
+                    <div class="reset-game">
+                        <button class="reset-game__btn">reset</button>
+                    </div>
+                    <div class="game-size">
+                        <label for="game-size-lable" class="game-size__lable">
+                            <input type="text" class="game-size__input" id="game-size-lable"
+                                placeholder="Please enter size Of game">
+                            <span class="game-size__button">submit</span>
+                        </label>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="table-part">
+                <div class="table">
+                    <table class="mytab">
+                        <tr class="default-table defalt-tr">
+                            <td class="default-table defalt-td"></td>
+                            <td class="default-table defalt-td"></td>
+                            <td class="default-table defalt-td"></td>
+                        </tr>
+                        <tr class="default-table defalt-tr">
+                            <td class="default-table defalt-td"></td>
+                            <td class="default-table defalt-td"></td>
+                            <td class="default-table defalt-td"></td>
+                        </tr>
+                        <tr class="default-table defalt-tr">
+                            <td class="default-table defalt-td"></td>
+                            <td class="default-table defalt-td"></td>
+                            <td class="default-table defalt-td"></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+</body>
+<script type="text/javascript" src="./javascript.js"></script>
+
+</html>
