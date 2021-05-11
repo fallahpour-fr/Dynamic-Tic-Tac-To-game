@@ -16,13 +16,16 @@ let playerFirst = document.querySelector('.player--first');
 let playerSecond = document.querySelector('.player--second');
 let arrAddScore = [0, 0];
 let resetBtn = document.querySelector('.reset-game__btn');
+let modal=document.querySelector('.modal');
+let overlay=document.querySelector('.overlay');
+let playerWinner=document.querySelector('.player--winner')
 
 function switchPlayer() {
     playerFirst.classList.toggle('player--active');
     playerSecond.classList.toggle('player--active');
 }
 
-gameSizeBtn.addEventListener('click', clickbtn );
+gameSizeBtn.addEventListener('click', clickbtn,{once:true} );
 
 function clickbtn() {
     let gamSizeinput = document.getElementById('game-size-lable').value;
@@ -93,7 +96,7 @@ function checktable(tdTag, arr, size) {
         }
         switchPlayer();
         checkWinner(arr, tdTag, size);
-    })
+    },{once:true})
 
 }
 
@@ -180,16 +183,43 @@ function addScore(currentPlayer) {
         arrAddScore[0] += k;
         scoreX.textContent = arrAddScore[0];
         k = 0;
+        openModal(currentPlayer);
     } else {
         n++;
         arrAddScore[1] += n;
         scoreO.textContent = arrAddScore[1];
         n = 0;
-
+        openModal(currentPlayer);
     }
     console.log(arrAddScore);
 }
 
+function openModal (currentPlayer) {
+    modal.classList.remove('hidden-table');
+    overlay.classList.remove('hidden-table');
+    playerWinner.innerText=currentPlayer;
+};
+
+ function closeModal() {
+    modal.classList.add('hidden-table');
+    overlay.classList.add('hidden-table');
+};
+
+overlay.addEventListener('click', closeModal);
+
+document.addEventListener('keydown',keydownfunction);
+
+function keydownfunction(e){
+    
+    if(e.key === 'Escape'){
+        console.log('hi');
+        closeModal();
+    }
+
+}
+
+
+/*...............................................reset....................................*/
 resetBtn.addEventListener('click', resetFunction);
 
 function resetFunction() {
@@ -202,3 +232,5 @@ function resetFunction() {
     playerSecond.classList.remove('player--active');
 
 }
+
+
