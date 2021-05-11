@@ -18,7 +18,8 @@ let arrAddScore = [0, 0];
 let resetBtn = document.querySelector('.reset-game__btn');
 let modal=document.querySelector('.modal');
 let overlay=document.querySelector('.overlay');
-let playerWinner=document.querySelector('.player--winner')
+let playerWinner=document.querySelector('.player--winner');
+let gamSizeValue=document.getElementById('game-size-lable');
 
 function switchPlayer() {
     playerFirst.classList.toggle('player--active');
@@ -30,7 +31,7 @@ gameSizeBtn.addEventListener('click', clickbtn,{once:true} );
 function clickbtn() {
     let gamSizeinput = document.getElementById('game-size-lable').value;
     size=Number(gamSizeinput);
-    table.classList.add('hidden-table');
+    // table.classList.add('hidden-table');
     let arr = new Array(size);
     for (var i = 0; i < size; i++) {
         arr[i] = new Array(size);
@@ -57,14 +58,12 @@ function clickbtn() {
 // }
 
 function changeGamesize(size, arr) {
-    // console.log('hi' , size);
     for (let i = 0; i < size; i++) {
         let tag = document.createElement('tr');
         // tag.setAttribute('id', i + 4);
         for (let j = 0; j < size; j++) {
             let tdTag = document.createElement('td');
             tdTag.setAttribute('id', `${i}${j}`);
-            // tdTag.style = 'border:10px solid black';
             tdTag.classList.add('defalt-td')
             // k++;
             tag.appendChild(tdTag);
@@ -73,7 +72,6 @@ function changeGamesize(size, arr) {
         mytab.appendChild(tag);
         // k = 0;
     }
-    // console.log(arr);
 }
 
 function checktable(tdTag, arr, size) {
@@ -172,8 +170,7 @@ function checkWinner(arr, tdTag, size) {
             }
         }
     }
-
-    // resetFunction(tdTag, arr);
+    
 }
 
 
@@ -223,14 +220,11 @@ function keydownfunction(e){
 resetBtn.addEventListener('click', resetFunction);
 
 function resetFunction() {
-    clickbtn();
-    changeGamesize();
-    if(activePlayer==1){
-        activePlayer=0
-    }
+   
     playerFirst.classList.add('player--active');
     playerSecond.classList.remove('player--active');
-
+    gamSizeValue.value='';
+    
 }
 
 
