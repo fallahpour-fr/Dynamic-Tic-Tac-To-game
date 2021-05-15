@@ -2,7 +2,6 @@
 
 let gameSizeBtn = document.querySelector('.game-size__button');
 // let gamSizeinput = document.getElementById('game-size-lable');
-let table = document.querySelector('.table')
 let mytab = document.querySelector('.mytab');
 let size;
 let currentPlayer = 'X';
@@ -24,11 +23,34 @@ function switchPlayer() {
     playerSecond.classList.toggle('player--active');
 }
 
-gameSizeBtn.addEventListener('click', clickbtn, {
-    once: true
-});
+/*...............................................reset....................................*/
+
+resetBtn.addEventListener('click', resetFunction);
+
+function resetFunction() {
+    let trtag=document.querySelectorAll('.trtag');
+    playerFirst.classList.add('player--active');
+    playerSecond.classList.remove('player--active');
+    gamSizeValue.value = '';
+    size;
+    arr;
+    activePlayer = 0;
+    trtag.forEach((iteme)=>{
+        iteme.classList.add('hidden-table')
+    })
+    let gamSizeinput = document.getElementById('game-size-lable').value;
+    size = Number(gamSizeinput);
+    arr = new Array(size);
+    for (var i = 0; i < size; i++) {
+        arr[i] = new Array(size);
+    }
+    changeGamesize(size, arr);
+}
+
+gameSizeBtn.addEventListener('click', clickbtn);
 
 function clickbtn() {
+    // mytab.classList.remove('hidden-table');
     let gamSizeinput = document.getElementById('game-size-lable').value;
     size = Number(gamSizeinput);
     arr = new Array(size);
@@ -58,9 +80,9 @@ function clickbtn() {
 function changeGamesize(size, arr) {
 
     for (let i = 0; i < size; i++) {
-
+        // mytab.classList.remove('hidden-table');
         let tag = document.createElement('tr');
-        // tag.setAttribute('id', i + 4);
+        tag.setAttribute('class', 'trtag');
         for (let j = 0; j < size; j++) {
             let tdTag = document.createElement('td');
             tdTag.classList.add('defalt-td')
@@ -204,6 +226,7 @@ function addScore(lastValue) {
         k = 0;
         openModal(lastValue);
     } else {
+        let n=0;
         n++;
         arrAddScore[1] += n;
         scoreO.textContent = arrAddScore[1];
@@ -218,6 +241,7 @@ function openModal(lastValue) {
     modal.classList.remove('hidden-table');
     overlay.classList.remove('hidden-table');
     playerWinner.innerText = lastValue;
+    resetFunction();
 };
 
 function closeModal() {
@@ -238,19 +262,3 @@ function keydownfunction(e) {
 
 }
 
-
-/*...............................................reset....................................*/
-resetBtn.addEventListener('click', resetFunction, {
-    once: true
-});
-
-function resetFunction() {
-
-    playerFirst.classList.add('player--active');
-    playerSecond.classList.remove('player--active');
-    gamSizeValue.value = '';
-    arr;
-    size;
-    clickbtn();
-    console.log(arr);
-}
