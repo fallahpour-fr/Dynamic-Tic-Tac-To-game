@@ -112,7 +112,7 @@ body {
 }
 
 .game-size__input {
-    width: 100%;
+    width: 2em;
     padding: 1em;
     padding-right: 5em;
     border-radius: 1em;
@@ -128,7 +128,6 @@ body {
     padding: 0.5em;
     border-radius: 1em;
     background-color: var(--color-purple);
-
 }
 
 /*...........................................*/

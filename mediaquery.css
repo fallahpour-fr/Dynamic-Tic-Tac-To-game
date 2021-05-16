@@ -1,0 +1,126 @@
+@media only screen and (min-width:1024px)and (max-width:1439px) {
+    .game-size {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width:768px)and (max-width:1024px) {
+
+    body{
+        font-size: 1em;
+        background-color: blue;
+    }
+    .players-part {
+        /* background-color: blue; */
+        display: flex;
+        /* justify-content:baseline; */
+        padding: 1em;
+        width: 60%;
+    }
+    .buttons-part {
+        /* background-color: yellowgreen; */
+        width: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0em;
+    }
+    .game-size__input {
+        margin: 10px;
+    }
+    .game-size__button {
+        font-size: 0.7em;
+        margin-left: -70px;
+        padding: 0.5em;      
+    }
+}
+
+@media only screen and (min-width:425px)and (max-width:768px) {
+    .players-part {
+        /* background-color: blue; */
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+        width: 100%;
+        /* margin: 10px; */
+    }
+
+    .player{
+        margin: 5px;
+        width: 50%;
+    }
+
+    .buttons-part {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5em 1em;
+    }
+
+    .button{
+        margin: 10px;
+    }
+
+    .game-size__input {
+        width: 5e0m;
+    }
+}
+
+@media only screen and (min-width:320px)and (max-width:425px) {
+    .title{
+        font-size: 0.7em;
+    }
+    .players-part {
+        /* background-color: blue; */
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+        width: 100%;
+        /* margin: 10px; */
+    }
+
+    .player{
+        margin: 5px;
+        width: 50%;
+    }
+
+    .buttons-part {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5em 1em;
+    }
+
+    .button{
+        margin: 10px;
+    }
+
+    .game-size__lable {
+        display: flex;
+        align-items: center;
+        /* width: 100%; */
+        flex-direction: column;
+    }
+
+    .game-size__button {
+        margin-left:0px;
+        padding: 0.5em;
+        margin-top: 5px;
+    }
+
+    .game-size__input {
+        width: 10em;
+        padding: 1em;
+        padding-right: 5em;
+        border-radius: 1em;
+        font-size: 0.5em;
+    }
+}
