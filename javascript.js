@@ -1,22 +1,29 @@
 'use strict'
 
-let gameSizeBtn = document.querySelector('.game-size__button');
-// let gamSizeinput = document.getElementById('game-size-lable');
-let mytab = document.querySelector('.mytab');
+const gameSizeBtn = document.querySelector('.game-size__button');
+const mytab = document.querySelector('.mytab');
+const scoreX = document.querySelector('.player__score--X');
+const scoreO = document.querySelector('.player__score--O');
+const playerFirst = document.querySelector('.player--first');
+const playerSecond = document.querySelector('.player--second');
+const resetBtn = document.querySelector('.reset-game__btn');
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const playerWinner = document.querySelector('.player--winner');
+const gamSizeValue = document.querySelector('#game-size-lable');
 let size;
 let currentPlayer = 'X';
 let activePlayer = 0;
 let arr;
-let scoreX = document.querySelector('.player__score--X');
-let scoreO = document.querySelector('.player__score--O');
-let playerFirst = document.querySelector('.player--first');
-let playerSecond = document.querySelector('.player--second');
 let arrAddScore = [0, 0];
-let resetBtn = document.querySelector('.reset-game__btn');
-let modal = document.querySelector('.modal');
-let overlay = document.querySelector('.overlay');
-let playerWinner = document.querySelector('.player--winner');
-let gamSizeValue = document.querySelector('#game-size-lable');
+
+
+resetBtn.addEventListener('click', resetGame);
+gameSizeBtn.addEventListener('click', getGameSizeBtn);
+overlay.addEventListener('click', closeModal);
+document.addEventListener('keydown', keydown);
+
+/* ..........................................switchPlayer............................... */
 
 function switchPlayer() {
     playerFirst.classList.toggle('player--active');
@@ -25,17 +32,13 @@ function switchPlayer() {
 
 /*...............................................reset....................................*/
 
-resetBtn.addEventListener('click', resetFunction);
-
-function resetFunction() {
-    let trtag=document.querySelectorAll('.trtag');
+function resetGame() {
+    let trtag = document.querySelectorAll('.trtag');
     playerFirst.classList.add('player--active');
     playerSecond.classList.remove('player--active');
     gamSizeValue.value = '';
-    size;
-    arr;
     activePlayer = 0;
-    trtag.forEach((iteme)=>{
+    trtag.forEach((iteme) => {
         iteme.classList.add('hidden-table')
     })
     let gamSizeinput = document.getElementById('game-size-lable').value;
@@ -44,58 +47,38 @@ function resetFunction() {
     for (var i = 0; i < size; i++) {
         arr[i] = new Array(size);
     }
-    changeGamesize(size, arr);
+    changeGameSize(size, arr);
 }
 
-gameSizeBtn.addEventListener('click', clickbtn);
+/*...................................gameStart......................................... */
 
-function clickbtn() {
-    // mytab.classList.remove('hidden-table');
+function getGameSizeBtn() {
     let gamSizeinput = document.getElementById('game-size-lable').value;
     size = Number(gamSizeinput);
     arr = new Array(size);
     for (var i = 0; i < size; i++) {
         arr[i] = new Array(size);
     }
-    changeGamesize(size, arr);
+    changeGameSize(size, arr);
 }
 
 
-// gamSizeinput.addEventListener('keyup', enterClick);
-
-// function enterClick(event) {
-//     if (event.key === 'Enter') {
-//         size = Number(gamSizeinput.value);
-//         table.classList.add('hidden-table');
-//         let arr = new Array(size);
-//         for (var i = 0; i < size; i++) {
-//             arr[i] = new Array(size);
-//         }
-
-//         changeGamesize(size, arr);
-//     }
-
-// }
-
-function changeGamesize(size, arr) {
+function changeGameSize(size, arr) {
 
     for (let i = 0; i < size; i++) {
-        // mytab.classList.remove('hidden-table');
         let tag = document.createElement('tr');
         tag.setAttribute('class', 'trtag');
         for (let j = 0; j < size; j++) {
             let tdTag = document.createElement('td');
             tdTag.classList.add('defalt-td')
-            // k++;
             tag.appendChild(tdTag);
-            checktable(tdTag, arr ,i,j);
+            checkPlayerTurn(tdTag, arr, i, j);
         }
         mytab.appendChild(tag);
-        // k = 0;
     }
 }
 
-function checktable(tdTag, arr ,i,j) {
+function checkPlayerTurn(tdTag, arr, i, j) {
 
     tdTag.addEventListener('click', function () {
 
@@ -119,7 +102,6 @@ function checktable(tdTag, arr ,i,j) {
 }
 
 function checkWinner(arr, r, t) {
-    console.log(arr, r, t);
     let matches = 0;
     let lastValue = arr[r][t];
 
@@ -128,13 +110,11 @@ function checkWinner(arr, r, t) {
         let currentValue = arr[r][k];
         if (currentValue === lastValue) {
             matches++;
-            console.log(matches);
         } else {
             matches = 0;
         }
         if (matches === arr.length) {
-            console.log('hi');
-            addScore(lastValue);
+            addWinningPoint(lastValue);
             break;
         }
 
@@ -147,28 +127,24 @@ function checkWinner(arr, r, t) {
         let currentValue = arr[h][t];
         if (currentValue === lastValue) {
             matches++;
-            console.log(matches);
         } else {
             matches == 0;
         }
         if (matches === arr.length) {
-            console.log('ho');
-            addScore(lastValue);
+            addWinningPoint(lastValue);
             break;
         }
     }
 
-
+    //top left to bottom right matches
     matches = 0;
-    //top left to bottom right
     for (let k = 0; k < arr.length; k++) {
         for (let n = 0; n < arr.length; n++) {
             if (k == n) {
                 if (arr[n][k] === lastValue) {
                     matches++;
                     if (matches == arr.length) {
-                        console.log('multiplie1 win');
-                        addScore(lastValue);
+                        addWinningPoint(lastValue);
                     }
                 } else {
                     matches = 0;
@@ -178,6 +154,7 @@ function checkWinner(arr, r, t) {
             }
         }
     }
+
     matches = 0;
     //top right to bottom left matches
     for (let k = 0; k < arr.length; k++) {
@@ -186,8 +163,7 @@ function checkWinner(arr, r, t) {
                 if (arr[k][n] === lastValue) {
                     matches++;
                     if (matches == arr.length) {
-                        console.log('multiplie2 win');
-                        addScore(lastValue);
+                        addWinningPoint(lastValue);
                     }
                 } else {
                     matches = 0;
@@ -198,50 +174,32 @@ function checkWinner(arr, r, t) {
         }
     }
 
-
-    // for (let row = 0; row < size; row++) {
-    //     let winner;
-    //     let init = arr[row][0];
-    //     for (let col = 1; col < size; col++) {
-    //         if (init !== arr[row][col]) {
-    //             break;
-    //         }
-    //         if (col === size - 1) {
-    //             winner = init;
-    //         }
-    //     }
-    //     if (winner) {
-    //         console.log('Pouya', winner)
-    //     }
-    // }
-
 }
 
-function addScore(lastValue) {
-    let k=0;
+function addWinningPoint(lastValue) {
+    let k = 0;
     if (lastValue == 'X') {
         k++;
         arrAddScore[0] += k;
         scoreX.textContent = arrAddScore[0];
         k = 0;
-        openModal(lastValue);
+        openModalAndResetGame(lastValue);
     } else {
-        let n=0;
+        let n = 0;
         n++;
         arrAddScore[1] += n;
         scoreO.textContent = arrAddScore[1];
         n = 0;
-        openModal(lastValue);
+        openModalAndResetGame(lastValue);
     }
-    console.log(arrAddScore);
 }
 
 
-function openModal(lastValue) {
+function openModalAndResetGame(lastValue) {
     modal.classList.remove('hidden-table');
     overlay.classList.remove('hidden-table');
     playerWinner.innerText = lastValue;
-    resetFunction();
+    resetGame();
 };
 
 function closeModal() {
@@ -249,16 +207,10 @@ function closeModal() {
     overlay.classList.add('hidden-table');
 };
 
-overlay.addEventListener('click', closeModal);
-
-document.addEventListener('keydown', keydownfunction);
-
-function keydownfunction(e) {
+function keydown(e) {
 
     if (e.key === 'Escape') {
-        console.log('hi');
         closeModal();
     }
 
 }
-
