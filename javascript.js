@@ -10,7 +10,7 @@ const resetBtn = document.querySelector('.reset-game__btn');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const playerWinner = document.querySelector('.player--winner');
-const gamSizeValue = document.querySelector('#game-size-lable');
+const gamSizeinput = document.getElementById('game-size-lable');
 let size;
 let currentPlayer = 'X';
 let activePlayer = 0;
@@ -36,13 +36,13 @@ function resetGame() {
     let trtag = document.querySelectorAll('.trtag');
     playerFirst.classList.add('player--active');
     playerSecond.classList.remove('player--active');
-    gamSizeValue.value = '';
+    gamSizeinput.value = '';
     activePlayer = 0;
     trtag.forEach((iteme) => {
         iteme.classList.add('hidden-table')
     })
-    let gamSizeinput = document.getElementById('game-size-lable').value;
-    size = Number(gamSizeinput);
+   
+    size = Number(document.getElementById('game-size-lable').value);
     arr = new Array(size);
     for (var i = 0; i < size; i++) {
         arr[i] = new Array(size);
@@ -53,8 +53,7 @@ function resetGame() {
 /*...................................gameStart......................................... */
 
 function getGameSizeBtn() {
-    let gamSizeinput = document.getElementById('game-size-lable').value;
-    size = Number(gamSizeinput);
+    size = Number(document.getElementById('game-size-lable').value);
     arr = new Array(size);
     for (var i = 0; i < size; i++) {
         arr[i] = new Array(size);
